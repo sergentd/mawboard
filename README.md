@@ -124,6 +124,13 @@ Ce guide suppose que vous disposez d'un serveur web Apache avec PHP (incluant le
 **6. Accéder à l'Application:**
    Ouvrez un navigateur web et naviguez vers l'adresse IP ou le nom d'hôte de votre serveur (par ex., `http://<votre_ip_serveur>/`).
 
+## Déploiement (Automatique - Apache sur Linux)
+
+Pour lancer l'installation automatique de MAWBoard, il vous suffit de télécharger le fichier "install_mawboard.sh" présent à la racine de ce repository et de l'exécuter depuis une fenêtre shell sur le périphérique de destination. Ce script lance la copie et permet de configurer l'application pour un fonctionnement immédiat.
+  ```bash
+  sudo install_mawboard.sh
+  ```
+
 ## Utilisation
 
 **Écrans Principaux :**
