@@ -21,10 +21,10 @@ sudo git config --global --add safe.directory "$WEB_ROOT"
 if [ -d "$WEB_ROOT" ]; then
     echo "Updating existing MAWBoard directory at $WEB_ROOT ..."
     cd "$WEB_ROOT"
-    git pull
+    sudo git pull
 else
     echo "Cloning MAWBoard repo to $WEB_ROOT ..."
-    git clone "$REPO_URL" "$WEB_ROOT"
+    sudo git clone "$REPO_URL" "$WEB_ROOT"
     sudo chown -R www-data:www-data mawboard
 fi
 cd "$WEB_ROOT"
