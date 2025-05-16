@@ -15,9 +15,9 @@ echo "===> Installing dependencies..."
 sudo apt update
 sudo apt install -y apache2 php php7.4-mysql php-curl php-gd php-intl php-json unzip git mariadb-client acl
 
-
 # Step 1: Clone or update repo
 echo "===> Cloning MAWBoard repository..."
+sudo git config --global --add safe.directory "$WEB_ROOT"
 if [ -d "$WEB_ROOT" ]; then
     echo "Updating existing MAWBoard directory at $WEB_ROOT ..."
     cd "$WEB_ROOT"
