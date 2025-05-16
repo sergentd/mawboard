@@ -21,10 +21,10 @@ sudo git config --global --add safe.directory "$WEB_ROOT"
 if [ -d "$WEB_ROOT" ]; then
     echo "Updating existing MAWBoard directory at $WEB_ROOT ..."
     cd "$WEB_ROOT"
-    sudo git pull
+    git pull
 else
     echo "Cloning MAWBoard repo to $WEB_ROOT ..."
-    sudo git clone "$REPO_URL" "$WEB_ROOT"
+    git clone "$REPO_URL" "$WEB_ROOT"
     sudo chown -R www-data:www-data mawboard
 fi
 cd "$WEB_ROOT"
@@ -61,7 +61,7 @@ if [[ "$configure" =~ ^[Yy]$ ]]; then
     sudo sed -i "s|\(define('DB_USER',\s*\).*);|\1'$DB_USER');|" "$CONFIG_FILE"
     sudo sed -i "s|\(define('DB_PASS',\s*\).*);|\1'$DB_PASS');|" "$CONFIG_FILE"
     sudo sed -i "s|\(define('DB_NAME',\s*\).*);|\1'$DB_NAME');|" "$CONFIG_FILE"
-    sudo sed -i "s|\(define('DB_PORT',\s*\).*);|\1$DB_PORT);" "$CONFIG_FILE"
+    sudo sed -i "s|\(define('DB_PORT',\s*\).*);|\1'$DB_PORT');|" "$CONFIG_FILE"
     sudo sed -i "s|\(define('WEATHER_API_KEY',\s*\).*);|\1'$WEATHER_API_KEY');|" "$CONFIG_FILE"
     sudo sed -i "s|\(define('AD_IMAGE_BASE_DIR',\s*\).*);|\1'$IMGDIR');|" "$CONFIG_FILE"
     sudo sed -i "s|\(define('AD_INI_FILE_PATH',\s*\).*);|\1'$INIPATH');|" "$CONFIG_FILE"
