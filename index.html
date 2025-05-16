@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<!-- Setting lang attribute is good practice -->
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MAWBoard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="static/style.css">
+    <link rel="icon" type="image/x-icon" href="static/img/icon.ico">
+</head>
+
+<body>
+    <main class="welcome-screen">
+        <!-- HEADER -->
+        <header class="idle-header" id="idle-header">
+            <div class="header-section weather-area">
+                <img id="idle-weather-icon-img" src="" alt="" class="weather-icon-img"> <!-- Alt text managed by JS -->
+                <span id="idle-weather-temp">--°C</span>
+                <span id="idle-weather-desc" role="status" aria-live="polite">Chargement...</span>
+            </div>
+            <div class="main-toggle-area logo-area logo-section">
+                <div class="mode-toggle-container">
+                    <span id="mode-label-idle">Mode Scan</span>
+                    <button id="mode-toggle-btn" class="mode-toggle" aria-pressed="false" title="Switch Mode">
+                        <span class="toggle-thumb"></span>
+                    </button>
+                    <span id="mode-label-list">Mode Liste</span>
+                </div>
+            </div>
+            <div class="header-section datetime-area">
+                <span id="current-date">--/--/----</span>
+                <span id="current-time">--:--:--</span>
+                <button id="open-settings-btn" class="btn-icon" title="Settings" aria-label="Open Settings">⚙️</button>
+            </div>
+        </header>
+
+        <!-- IDLE SCREEN -->
+        <div id="idle-screen" class="screen-view" role="region" aria-labelledby="idle-screen-heading">
+            <div class="idle-main">
+                <section class="main-column welcome-column">
+                    <h1 id="idle-screen-heading">Bienvenue !</h1>
+                    <p class="scan-prompt">Merci de scanner votre carte d'adhérant</p>
+                </section>
+            </div>
+        </div>
+
+        <div id="ad-overlay-container" class="ad-overlay hidden">
+        </div>
+
+        <!-- MEMBER SCREEN -->
+        <div id="member-screen" class="screen-view hidden" role="region" aria-labelledby="welcome-message">
+            <div class="member-content-wrapper">
+                <div class="status-light-container" aria-hidden="true">
+                    <div id="traffic-light" class="traffic-light">
+                        <div class="light red"></div>
+                        <div class="light orange"></div>
+                        <div class="light green"></div>
+                    </div>
+                </div>
+
+                <h2 id="welcome-message">Bienvenue !</h2>
+                <p id="custom-message" role="status" aria-live="polite">Vérification de votre statut...</p>
+                <section class="stats-area" id="stats-area" aria-labelledby="stats-heading">
+                    <h3 id="stats-heading">Vos statistiques:</h3>
+                    <ul>
+                        <li>
+                            <!-- Grouping label and value semantically -->
+                            <span class="stat-label" id="label-checkin">Entrée:</span>
+                            <span class="stat-value" id="stat-checkin" aria-labelledby="label-checkin">--</span>
+                        </li>
+                        <li>
+                            <span class="stat-label" id="label-trainings">Entraînements ce mois:</span>
+                            <span class="stat-value" id="stat-trainings" aria-labelledby="label-trainings">--</span>
+                        </li>
+                        <li>
+                            <span class="stat-label" id="label-total">Entraînements total:</span>
+                            <span class="stat-value" id="stat-total" aria-labelledby="label-total">--</span>
+                        </li>
+                        <li>
+                            <span class="stat-label" id="label-measure">Jours depuis la dernière mesure:</span>
+                            <span class="stat-value" id="stat-measure" aria-labelledby="label-measure">--</span>
+                        </li>
+                        <li>
+                            <span class="stat-label" id="label-sessions">Séances restantes:</span>
+                            <span class="stat-value" id="stat-sessions" aria-labelledby="label-sessions">--</span>
+                        </li>
+                    </ul>
+                </section>
+            </div>
+        </div>
+
+        <!-- SETTINGS SCREEN -->
+        <div id="settings-screen" class="screen-view hidden" role="dialog" aria-modal="true"
+            aria-labelledby="settings-title">
+            <div class="settings-content-wrapper">
+                <h1 id="settings-title">Paramètres</h1>
+                <div class="setting-group">
+                    <label for="setting-language" id="settings-language-label">Langue:</label>
+                    <select id="setting-language">
+                        <option id="opt-lang-fr" value="fr">Français</option>
+                        <option id="opt-lang-en" value="en">English</option>
+                        <option id="opt-lang-de" value="de">Deutsch</option>
+                        <option id="opt-lang-it" value="it">Italiano</option>
+                        <option id="opt-lang-pt" value="pt">Portuguese</option>
+                        <!-- Add other languages here if needed -->
+                    </select>
+                </div>
+                <div class="setting-group">
+                    <div>
+                        <label for="setting-lock-password" id="setting-pwd-label">Vérouillage écran:</label>
+                        <input type="text" id="username" name="username" value="" autocomplete="username email" hidden>
+                        <input type="password" id="setting-lock-password" name="password"
+                            autocomplete="current-password" placeholder="Saisir un nouveau mot de passe">
+                        <div id="password-set-status" class="message-info"></div>
+                        <button id="remove-password-btn" class="btn-secondary btn-small" style="display: none">Retirer
+                            le Mot de Passe Actuel</button>
+                    </div>
+                </div>
+                <div class="setting-group">
+                    <label id="settings-location-label">Localisation Météo:</label>
+                    <div>
+                        <label for="setting-city">Ville:</label>
+                        <input type="text" id="setting-city" placeholder="Ex: Geneve">
+                    </div>
+                    <div class="validation-error" id="setting-city-error"></div>
+                    <div>
+                        <label for="setting-country">Pays:</label>
+                        <input type="text" id="setting-country" placeholder="Ex: CH (Code 2 lettres)">
+                    </div>
+                    <div class="validation-error" id="setting-country-error"></div>
+                </div>
+                <div class="setting-group setting-toggle-group"> <!-- Added class for styling -->
+                    <label for="setting-ads-toggle" id="settings-ads-label">Afficher Publicités:</label>
+                    <button id="setting-ads-toggle" class="mode-toggle settings-toggle" aria-pressed="false">
+                        <span class="toggle-thumb"></span>
+                    </button>
+                </div>
+                <div class="setting-actions">
+                    <button id="save-settings-btn" class="btn btn-primary"
+                        aria-label="Save Settings">Enregistrer</button>
+                    <button id="close-settings-btn" class="btn btn-secondary"
+                        aria-label="Close Settings Panel">Fermer</button>
+                </div>
+                <div id="settings-status" role="status" aria-live="polite"></div>
+            </div>
+        </div>
+
+        <!-- LISTING SCREEN -->
+        <div id="list-screen" class="screen-view hidden" role="region" aria-labelledby="list-screen-heading">
+            <h1 id="list-screen-heading" class="sr-only">Recent Scans</h1>
+            <div class="scan-list-container">
+                <ul id="scan-list">
+                    <!-- List items will be generated by JS -->
+                </ul>
+                <div id="no-scans-message" class="no-scans hidden">
+                    Aucun scan récent.
+                </div>
+            </div>
+        </div>
+
+        <!-- PASSWORD SCREEN -->
+        <div id="password-screen" class="screen-view hidden password-overlay" role="dialog" aria-modal="true"
+            aria-labelledby="password-title">
+            <div class="password-content-wrapper">
+                <h2 id="password-title">Mot de Passe Requis</h2>
+                <label for="password-input" class="sr-only">Entrez le mot de passe</label>
+                <!-- Label for screen readers -->
+                <input type="password" id="password-input" placeholder="Mot de passe">
+                <div id="password-status" class="message-error"></div> <!-- For incorrect password msg -->
+                <div class="password-actions">
+                    <button type="button" id="confirm-password-btn" class="btn btn-primary">Confirmer</button>
+                    <button type="button" id="cancel-password-btn" class="btn btn-secondary">Annuler</button>
+                </div>
+            </div>
+        </div>
+    </main>
+    <script type="module" src="static/js/app.js"></script>
+</body>
+
+</html>
