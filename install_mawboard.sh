@@ -30,6 +30,7 @@ fi
 cd "$WEB_ROOT"
 
 echo "===> Setting up Apache virtual host..."
+sudo cp /etc/apache2/sites-available/000-default.conf /etc/apache2/sites-available/000-default.conf.backup
 sudo cp 000-default.conf /etc/apache2/sites-available/000-default.conf
 sudo a2enmod rewrite
 sudo systemctl restart apache2
