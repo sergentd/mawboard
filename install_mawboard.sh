@@ -37,7 +37,7 @@ if [ -d "$WEB_ROOT" ]; then
 fi
 
 # Dans tous les cas (qu'il existait et a été supprimé, ou qu'il n'existait pas), on clone.
-echo "Cloning MAWBoard repo to $WEB_ROOT ..."
+echo "[INFO] Cloning MAWBoard repo to $WEB_ROOT ..."
 # Clone en tant que l'utilisateur actuel. Le chown viendra plus tard si nécessaire.
 git clone "$REPO_URL" "$WEB_ROOT"
 echo "[SUCCESS] Repository cloned successfully."
